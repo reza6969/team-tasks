@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+How to do I create a new Next.js  15 project?
+# npx create-next-app@latest
+
+# node version use 19.8.1
+
+ What's the best structure for a samll project, including the baxkend. How do I add new pages, components, where do I put  UI related things etc.
+
+ what is this doing ?
+
+ @Codebase  can you explain what this project is doing and just tell me something about it?
+
+ use the best practices here.

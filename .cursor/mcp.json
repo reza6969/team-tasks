@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "console-ninja": {
+      "command": "node",
+      "args": [
+        "~/.console-ninja/mcp/"
+      ]
+    },
+    "notion_composio": {
+      "url": "https://mcp.composio.dev/notion/round-red-lizard-4xiGvx"
+    },
+    "slack_composio": {
+      "url": "https://mcp.composio.dev/slack/round-red-lizard-4xiGvx"
+    },
+    "github_composio": {
+      "url": "https://mcp.composio.dev/github/round-red-lizard-4xiGvx"
+    },
+    "hackernews_composio": {
+      "url": "https://mcp.composio.dev/hackernews/round-red-lizard-4xiGvx"
+    },
+    "figma_composio": {
+      "url": "https://mcp.composio.dev/figma/round-red-lizard-4xiGvx"
+    },
+    "sentry_composio": {
+      "url": "https://mcp.composio.dev/sentry/round-red-lizard-4xiGvx"
+    },
+    "codeinterpreter_composio": {
+      "url": "https://mcp.composio.dev/codeinterpreter/round-red-lizard-4xiGvx"
+    }
+  }
+}
