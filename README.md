@@ -47,3 +47,21 @@ How to do I create a new Next.js  15 project?
  @Codebase  can you explain what this project is doing and just tell me something about it?
 
  use the best practices here.
+
+
+ Let's install and configure shadxn/ui in our Next.js  project. We'll need several components including Dialog, Form, Button and Card components.
+
+ Can you help me set this up?
+
+ We need the lightr/dark mode support, using the best
+ and most popular Next.js solution for that.
+
+
+ @Shadcn UI Kit Please reprint the output once again,  but refer to the shadcn docs!
+
+ npx shadcn@latest init
+ npm install next-themes
+ npm install next-themes @radix-ui/react-dialog @radix-ui/react-slot @radix-ui/react-lable @hookform/resolvers class-variance-authority clsx tailwind-merge lucide-react react-hook-form zod
+
+ npx shadcn-ui@latest add button card dialog dropdown-menu
+ 
