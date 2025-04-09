@@ -64,4 +64,3 @@ How to do I create a new Next.js  15 project?
  npm install next-themes @radix-ui/react-dialog @radix-ui/react-slot @radix-ui/react-lable @hookform/resolvers class-variance-authority clsx tailwind-merge lucide-react react-hook-form zod
 
  npx shadcn-ui@latest add button card dialog dropdown-menu
- 

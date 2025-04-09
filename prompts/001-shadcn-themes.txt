@@ -1,0 +1,13 @@
+Let's install and configure shadcn/ui in our Next.js project. we'll need several components include
+
+Can you help me set this up?
+
+We need the light/dark mode support, using the best and most  popular Next.js solution for that.
+
+Help me create Kanban-style board layout using shadcnui and Tailwind.
+
+I want three columns  Todo, In progress, Done.
+
+Each  column should be able to display task cards.
+
+You have removed thr light/dark mode toggling. Please bring it back.
