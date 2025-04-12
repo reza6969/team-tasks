@@ -10,4 +10,8 @@ I want three columns  Todo, In progress, Done.
 
 Each  column should be able to display task cards.
 
-You have removed thr light/dark mode toggling. Please bring it back.
+You have removed the light/dark mode toggling. Please bring it back.
+
+You have removed the light/dark mode toggling. please bring it back. Make sure you use the existing component:
+
+@theme-provider.tsx and @theme-toggle.tsx

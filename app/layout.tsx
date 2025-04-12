@@ -36,8 +36,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ThemeToggle />
-          {children}
+          <div className="relative min-h-screen">
+            <div className="absolute top-4 right-4">
+              <ThemeToggle />
+            </div>
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
