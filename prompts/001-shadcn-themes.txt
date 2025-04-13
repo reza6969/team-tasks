@@ -15,3 +15,13 @@ You have removed the light/dark mode toggling. Please bring it back.
 You have removed the light/dark mode toggling. please bring it back. Make sure you use the existing component:
 
 @theme-provider.tsx and @theme-toggle.tsx
+
+Can you explain this to me, as if I don't know  React?
+
+Update TaskCard  component using shadcn /ui.
+
+Each card  should display title, description, assignee.
+
+it should have an option to edit the  asssignee.
+
+Make it look professional. Install midding components.

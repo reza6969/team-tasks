@@ -1,17 +1,30 @@
-import { Card } from "@/components/ui/card"
+"use client"
+
+import { TaskCard } from "./TaskCard"
 
 export type Task = {
   id: string
   title: string
   description: string
   status: "todo" | "in-progress" | "done"
+  priority?: "low" | "medium" | "high"
+  dueDate?: string
+  createdAt?: string
+  assignedAt?: string
+  assignee?: {
+    id: string
+    name: string
+    email: string
+    avatar?: string
+  }
 }
 
 interface KanbanBoardProps {
   tasks: Task[]
+  onAssigneeChange?: (taskId: string, userId: string) => void
 }
 
-export function KanbanBoard({ tasks }: KanbanBoardProps) {
+export function KanbanBoard({ tasks, onAssigneeChange }: KanbanBoardProps) {
   const columns = [
     { title: "Todo", status: "todo" },
     { title: "In Progress", status: "in-progress" },
@@ -27,10 +40,11 @@ export function KanbanBoard({ tasks }: KanbanBoardProps) {
             {tasks
               .filter((task) => task.status === column.status)
               .map((task) => (
-                <Card key={task.id} className="p-4 hover:shadow-lg transition-shadow">
-                  <h3 className="font-medium mb-2">{task.title}</h3>
-                  <p className="text-sm text-muted-foreground">{task.description}</p>
-                </Card>
+                <TaskCard 
+                  key={task.id} 
+                  task={task}
+                  onAssigneeChange={onAssigneeChange}
+                />
               ))}
           </div>
         </div>

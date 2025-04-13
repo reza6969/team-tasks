@@ -1,19 +1,30 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { TaskCard } from "@/app/components/TaskCard"
 
 export interface Task {
   id: string
   title: string
   description: string
   status: "todo" | "in-progress" | "done"
+  priority?: "low" | "medium" | "high"
+  dueDate?: string
+  createdAt?: string
+  assignedAt?: string
+  assignee?: {
+    id: string
+    name: string
+    email: string
+    avatar?: string
+  }
 }
 
 interface KanbanBoardProps {
   tasks?: Task[]
+  onAssigneeChange?: (taskId: string, userId: string) => void
 }
 
-export function KanbanBoard({ tasks = [] }: KanbanBoardProps) {
+export function KanbanBoard({ tasks = [], onAssigneeChange }: KanbanBoardProps) {
   const columns = [
     {
       title: "Todo",
@@ -42,14 +53,11 @@ export function KanbanBoard({ tasks = [] }: KanbanBoardProps) {
           <div className="p-4 font-semibold">{column.title}</div>
           <div className="flex-1 p-2 space-y-4">
             {column.tasks.map((task) => (
-              <Card key={task.id} className="cursor-pointer hover:bg-muted/50">
-                <CardHeader className="p-4">
-                  <CardTitle className="text-sm">{task.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="px-4 pb-4 text-sm text-muted-foreground">
-                  {task.description}
-                </CardContent>
-              </Card>
+              <TaskCard 
+                key={task.id} 
+                task={task}
+                onAssigneeChange={onAssigneeChange}
+              />
             ))}
           </div>
         </div>
