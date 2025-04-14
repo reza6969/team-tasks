@@ -11,8 +11,16 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
-import { UserCircle, Calendar, Clock, AlertCircle } from "lucide-react"
+import { UserCircle, Calendar, Clock, AlertCircle, MoreHorizontal } from "lucide-react"
 import type { Task } from "./KanbanBoard"
+import { TaskDialog } from "./TaskDialog"
+import { useState } from "react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 // Mock users data - in a real app, this would come from your backend
 const USERS = [
@@ -24,24 +32,27 @@ const USERS = [
 interface TaskCardProps {
   task: Task
   onAssigneeChange?: (taskId: string, userId: string) => void
+  onTaskUpdate?: (task: Task) => void
 }
 
-export function TaskCard({ task, onAssigneeChange }: TaskCardProps) {
+function getPriorityColor(priority: "low" | "medium" | "high") {
+  switch (priority) {
+    case "low":
+      return "bg-green-500"
+    case "medium":
+      return "bg-yellow-500"
+    case "high":
+      return "bg-red-500"
+    default:
+      return "bg-gray-500"
+  }
+}
+
+export function TaskCard({ task, onAssigneeChange, onTaskUpdate }: TaskCardProps) {
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
+
   const handleAssigneeChange = (userId: string) => {
     onAssigneeChange?.(task.id, userId)
-  }
-
-  const getPriorityColor = (priority?: string) => {
-    switch (priority?.toLowerCase()) {
-      case 'high':
-        return 'bg-red-500'
-      case 'medium':
-        return 'bg-yellow-500'
-      case 'low':
-        return 'bg-green-500'
-      default:
-        return 'bg-gray-500'
-    }
   }
 
   return (
@@ -52,6 +63,18 @@ export function TaskCard({ task, onAssigneeChange }: TaskCardProps) {
             {task.title}
           </CardTitle>
           <div className="flex items-center gap-2 shrink-0">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
+                  Edit
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             {task.priority && (
               <div className={`w-2 h-2 rounded-full ${getPriorityColor(task.priority)}`} />
             )}
@@ -161,26 +184,43 @@ export function TaskCard({ task, onAssigneeChange }: TaskCardProps) {
             </Tooltip>
           </TooltipProvider>
         </div>
+
+        {(task.dueDate || task.createdAt) && (
+          <>
+            <Separator className="mt-3" />
+            <CardFooter className="text-xs text-muted-foreground pt-3">
+              {task.dueDate && (
+                <div className="flex items-center gap-1 mr-4">
+                  <Calendar className="h-3 w-3" />
+                  <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>
+                </div>
+              )}
+              {task.createdAt && (
+                <div className="flex items-center gap-1">
+                  <Clock className="h-3 w-3" />
+                  <span>Created: {new Date(task.createdAt).toLocaleDateString()}</span>
+                </div>
+              )}
+            </CardFooter>
+          </>
+        )}
       </CardContent>
-      {(task.dueDate || task.createdAt) && (
-        <>
-          <Separator className="mt-3" />
-          <CardFooter className="text-xs text-muted-foreground pt-3">
-            {task.dueDate && (
-              <div className="flex items-center gap-1 mr-4">
-                <Calendar className="h-3 w-3" />
-                <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>
-              </div>
-            )}
-            {task.createdAt && (
-              <div className="flex items-center gap-1">
-                <Clock className="h-3 w-3" />
-                <span>Created: {new Date(task.createdAt).toLocaleDateString()}</span>
-              </div>
-            )}
-          </CardFooter>
-        </>
-      )}
+
+      <TaskDialog 
+        open={isEditDialogOpen} 
+        onOpenChange={setIsEditDialogOpen}
+        initialData={task}
+        onSubmit={(values) => {
+          if (onTaskUpdate) {
+            onTaskUpdate({
+              ...task,
+              ...values,
+              dueDate: values.dueDate ? values.dueDate.toISOString() : undefined,
+            })
+          }
+          setIsEditDialogOpen(false)
+        }}
+      />
     </Card>
   )
 } 

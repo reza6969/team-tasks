@@ -25,3 +25,21 @@ Each card  should display title, description, assignee.
 it should have an option to edit the  asssignee.
 
 Make it look professional. Install midding components.
+
+Help me implement a task creation/editing dialog using shadcn Dialog and From components.
+
+We need fields for title, description, assignee,.
+
+Include the client side validation using  Zod.
+
+I'd like to use React Hook Form.
+
+Take a look at the @TaskCard.tsx for how a task looks like.
+
+ We're missing a way to open this dialog to create a new task.
+
+There's no way to open the dialog for editing an existing task.
+
+Please use dropdown inside eaxh task, that will have an "Edit" option.
+
+Additionally, it seems that we're missing  some components that are required by @TaskDialog.tsx 
