@@ -21,13 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
-// Mock users data - in a real app, this would come from your backend
-const USERS = [
-  { id: "1", name: "Alice Smith", email: "alice@example.com", avatar: "https://api.dicebear.com/7.x/avatars/svg?seed=alice" },
-  { id: "2", name: "Bob Johnson", email: "bob@example.com", avatar: "https://api.dicebear.com/7.x/avatars/svg?seed=bob" },
-  { id: "3", name: "Carol Williams", email: "carol@example.com", avatar: "https://api.dicebear.com/7.x/avatars/svg?seed=carol" },
-]
+import { assignees } from "@/lib/data"
 
 interface TaskCardProps {
   task: Task
@@ -101,7 +95,7 @@ export function TaskCard({ task, onAssigneeChange, onTaskUpdate }: TaskCardProps
                 {task.assignee ? (
                   <>
                     <Avatar className="h-8 w-8 ring-2 ring-background">
-                      <AvatarImage src={task.assignee.avatar} alt={task.assignee.name} />
+                      <AvatarImage src={task.assignee.avatarUrl} alt={task.assignee.name} />
                       <AvatarFallback>{task.assignee.name.slice(0, 2).toUpperCase()}</AvatarFallback>
                     </Avatar>
                     <span className="text-sm text-muted-foreground">{task.assignee.name}</span>
@@ -118,7 +112,7 @@ export function TaskCard({ task, onAssigneeChange, onTaskUpdate }: TaskCardProps
               {task.assignee && (
                 <div className="flex justify-between space-x-4">
                   <Avatar className="h-12 w-12">
-                    <AvatarImage src={task.assignee.avatar} />
+                    <AvatarImage src={task.assignee.avatarUrl} />
                     <AvatarFallback>{task.assignee.name.slice(0, 2).toUpperCase()}</AvatarFallback>
                   </Avatar>
                   <div className="space-y-1">
@@ -160,11 +154,11 @@ export function TaskCard({ task, onAssigneeChange, onTaskUpdate }: TaskCardProps
                             <SelectValue placeholder="Select an assignee" />
                           </SelectTrigger>
                           <SelectContent>
-                            {USERS.map((user) => (
+                            {assignees.map((user) => (
                               <SelectItem key={user.id} value={user.id}>
                                 <div className="flex items-center gap-2">
                                   <Avatar className="h-6 w-6">
-                                    <AvatarImage src={user.avatar} alt={user.name} />
+                                    <AvatarImage src={user.avatarUrl} alt={user.name} />
                                     <AvatarFallback>{user.name.slice(0, 2).toUpperCase()}</AvatarFallback>
                                   </Avatar>
                                   <span>{user.name}</span>

@@ -43,3 +43,15 @@ There's no way to open the dialog for editing an existing task.
 Please use dropdown inside eaxh task, that will have an "Edit" option.
 
 Additionally, it seems that we're missing  some components that are required by @TaskDialog.tsx 
+
+I need a list of "static" assginees for the tasks. 
+
+This would eventually be fetched from the db.
+
+For now, put this in a *.ts file. put in the right place.
+
+The assignees need avatars. Can we grab some avatar faces over the internet?
+
+Please also repalce USERS const with this new assigness where needed!
+
+Please fix this error.

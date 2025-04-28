@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { assignees } from "@/lib/data"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -41,13 +42,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Task } from "./KanbanBoard"
-
-// Mock users data - using the same data as TaskCard
-const USERS = [
-  { id: "1", name: "Alice Smith", email: "alice@example.com", avatar: "https://api.dicebear.com/7.x/avatars/svg?seed=alice" },
-  { id: "2", name: "Bob Johnson", email: "bob@example.com", avatar: "https://api.dicebear.com/7.x/avatars/svg?seed=bob" },
-  { id: "3", name: "Carol Williams", email: "carol@example.com", avatar: "https://api.dicebear.com/7.x/avatars/svg?seed=carol" },
-]
 
 const taskFormSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -140,7 +134,7 @@ export function TaskDialog({ open, onOpenChange, initialData, onSubmit }: TaskDi
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {USERS.map((user) => (
+                      {assignees.map((user) => (
                         <SelectItem key={user.id} value={user.id}>
                           {user.name}
                         </SelectItem>
