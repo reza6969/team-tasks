@@ -64,3 +64,59 @@ How to do I create a new Next.js  15 project?
  npm install next-themes @radix-ui/react-dialog @radix-ui/react-slot @radix-ui/react-lable @hookform/resolvers class-variance-authority clsx tailwind-merge lucide-react react-hook-form zod
 
  npx shadcn-ui@latest add button card dialog dropdown-menu
+
+## Database Setup
+
+1. Start Postgres using Docker Compose:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+2. Create a `.env` file in the project root with the following content:
+
+   ```env
+   DATABASE_URL=postgres://postgres:postgres@localhost:5432/teamtasks
+   ```
+
+3. Install dependencies (if not already):
+
+   ```bash
+   npm install drizzle-orm pg
+   ```
+
+4. Drizzle ORM is set up in `db/index.ts` and schema is defined in `db/schema.ts`.
+
+1. Start the database:
+
+docker-compose up -d
+
+2. Generate and apply migrations:
+
+npm run db:genrate
+npm run db:push
+
+3. You can also view your database using Drizzle Studio
+
+npm run db:studio
+
+
+
+npm install drizzle-orm @vercel/postgres pg
+npm  install -D drizzle-kit @types/pg
+
+Hyper-V Not **Enabled**
+
+       dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
+
+
+docker compose up -d
+
+npm run db:generate
+npm run db:push
+docker compose ps
+docker compose exec db psql -U postgres
+docker compose exec postgres psql -U postgres
+CREATE DATABASE teamtasks;
+npm run db:push
+npm run db:studio

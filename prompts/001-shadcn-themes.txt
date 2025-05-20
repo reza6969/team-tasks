@@ -44,7 +44,7 @@ Please use dropdown inside eaxh task, that will have an "Edit" option.
 
 Additionally, it seems that we're missing  some components that are required by @TaskDialog.tsx 
 
-I need a list of "static" assginees for the tasks. 
+I need a list of "static" assginees for the tasks.
 
 This would eventually be fetched from the db.
 
@@ -55,3 +55,62 @@ The assignees need avatars. Can we grab some avatar faces over the internet?
 Please also repalce USERS const with this new assigness where needed!
 
 Please fix this error.
+
+We need to setup a database that will keep  the data for this project.
+Let's store columns & tasks in db.
+
+Use Postgres for db & drizzle for the ORM.
+
+For now, setup the docker compose file for  Postgres, and drizzle connectiuon setup etc.
+
+Don't touch the React components or pages yet.
+
+why did you suggest a vercel library? Is it essential?
+
+I've just dowmloade Docker Desktop for Mac, and this is what I get when I run that command.
+
+What could the problem be, please suggest the best solution for this issue.
+
+So I run docker compose up -d, and still failed. What about the PATH
+
+
+only do those points below, NOTHING ELSE!
+
+1) We dont have an src folder, so move everything into lib one
+2) Next up, we seem not to have .env file and additionally, let's just use DB_URL, not separate env vars
+3) Use @docker-compose.yml for credentials
+4) for @drizzle.config.ts use format instead:
+
+import { defineConfig } from "drizzle-kit";  export default defineConfig({   schema: "./schema/*",   out: "./drizzle",   dialect: 'postgresql',   dbCredentials: {     url: process.env.DB_URL,   } });  for reference use: @https://orm.drizzle.team/drizzle-studio/overview  
+
+5)  Fix the @config.ts  to use the DB_URL as well
+
+
+With this setup @docker-compose.yml how do i make sure, that  teamtasks database is created? And if I don't have that database, how do I create one ?
+
+We need to fetch columns & tasks.
+
+This should achieved through:
+- It's  Next.js so use Server Components when possible.
+- Use Server actions when possible
+- Use Next.js 15
+
+For now only handle the column & task fetching, storing/updating/deleting - this should ignored for now.
+
+Make sure not to use useEffect.
+
+You generated markup with Tailwind, but you should use existing components lik @KanbanBoard.tsx and @TaskCard.tsx - so just modify them if necessary
+
+Introduce the artifical delay, maybe 3 seconds make it configurable in a constant.
+
+The page needs a loading state for the columns and tasks.
+
+Use Next.js  best practices for loading state, but keep it simple.
+
+Use shadcn/ui Skeleton component and try to match the potential look of teamtasks columns & tasks ideally.
+
+So in @KanbanBoard.tsx  you've added some strange API that's not necessary only leave the data fetching that was there with Promise all.
+
+The loading state should be display using loading.tsx.
+
+Also, the skeleton component is not installed.

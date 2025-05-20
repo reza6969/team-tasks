@@ -1,6 +1,7 @@
 "use client"
 
 import { TaskCard } from "@/app/components/TaskCard"
+import { Column } from "@/lib/tasks"
 
 export interface Task {
   id: string
@@ -21,40 +22,28 @@ export interface Task {
 
 interface KanbanBoardProps {
   tasks?: Task[]
+  columns: Column[]
   onAssigneeChange?: (taskId: string, userId: string) => void
 }
 
-export function KanbanBoard({ tasks = [], onAssigneeChange }: KanbanBoardProps) {
-  const columns = [
-    {
-      title: "Todo",
-      status: "todo",
-      tasks: tasks.filter((task) => task.status === "todo"),
-    },
-    {
-      title: "In Progress",
-      status: "in-progress",
-      tasks: tasks.filter((task) => task.status === "in-progress"),
-    },
-    {
-      title: "Done",
-      status: "done",
-      tasks: tasks.filter((task) => task.status === "done"),
-    },
-  ]
+export function KanbanBoard({ tasks = [], columns, onAssigneeChange }: KanbanBoardProps) {
+  const columnsWithTasks = columns.map(column => ({
+    ...column,
+    tasks: tasks.filter(task => task.status === column.id)
+  }));
 
   return (
     <div className="flex gap-4 p-4 overflow-x-auto min-h-[calc(100vh-4rem)]">
-      {columns.map((column) => (
+      {columnsWithTasks.map((column) => (
         <div
-          key={column.status}
+          key={column.id}
           className="flex flex-col flex-shrink-0 w-80 bg-muted/20 rounded-lg"
         >
           <div className="p-4 font-semibold">{column.title}</div>
           <div className="flex-1 p-2 space-y-4">
             {column.tasks.map((task) => (
-              <TaskCard 
-                key={task.id} 
+              <TaskCard
+                key={task.id}
                 task={task}
                 onAssigneeChange={onAssigneeChange}
               />
@@ -64,4 +53,4 @@ export function KanbanBoard({ tasks = [], onAssigneeChange }: KanbanBoardProps) 
       ))}
     </div>
   )
-} 
+}

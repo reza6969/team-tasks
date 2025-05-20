@@ -9,3 +9,7 @@
 - The project is using Next.js 15 for server components.
 - The project is using Next.js 15 for server actions.
 - The project is using Next.js 15 for server components. -->
+
+- It's  Next.js so use Server Components when possible.
+- Use Server actions when possible
+- Use Next.js 15
