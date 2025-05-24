@@ -2,6 +2,9 @@
 
 import { TaskCard } from "@/app/components/TaskCard"
 import { Column } from "@/lib/tasks"
+import { TaskDialog } from "@/app/components/TaskDialog"
+import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 export interface Task {
   id: string
@@ -24,9 +27,11 @@ interface KanbanBoardProps {
   tasks?: Task[]
   columns: Column[]
   onAssigneeChange?: (taskId: string, userId: string) => void
+  onTaskCreate?: (task: Omit<Task, "id">) => void
 }
 
-export function KanbanBoard({ tasks = [], columns, onAssigneeChange }: KanbanBoardProps) {
+export function KanbanBoard({ tasks = [], columns, onAssigneeChange, onTaskCreate }: KanbanBoardProps) {
+  const [openDialogColumn, setOpenDialogColumn] = useState<string | null>(null)
   const columnsWithTasks = columns.map(column => ({
     ...column,
     tasks: tasks.filter(task => task.status === column.id)
@@ -37,9 +42,14 @@ export function KanbanBoard({ tasks = [], columns, onAssigneeChange }: KanbanBoa
       {columnsWithTasks.map((column) => (
         <div
           key={column.id}
-          className="flex flex-col flex-shrink-0 w-80 bg-muted/20 rounded-lg"
+          className="flex flex-col flex-shrink-0 w-80 bg-muted/20 rounded-lg relative"
         >
-          <div className="p-4 font-semibold">{column.title}</div>
+          <div className="p-4 font-semibold flex items-center justify-between">
+            {column.title}
+            <Button size="sm" variant="outline" onClick={() => setOpenDialogColumn(column.id)}>
+              +
+            </Button>
+          </div>
           <div className="flex-1 p-2 space-y-4">
             {column.tasks.map((task) => (
               <TaskCard
@@ -49,6 +59,20 @@ export function KanbanBoard({ tasks = [], columns, onAssigneeChange }: KanbanBoa
               />
             ))}
           </div>
+          <TaskDialog
+            open={openDialogColumn === column.id}
+            onOpenChange={(open) => setOpenDialogColumn(open ? column.id : null)}
+            onSubmit={(data) => {
+              if (onTaskCreate) {
+                onTaskCreate({
+                  ...data,
+                  status: column.id as Task["status"],
+                  description: data.description ?? "",
+                  dueDate: data.dueDate ? data.dueDate.toISOString() : undefined,
+                })
+              }
+            }}
+          />
         </div>
       ))}
     </div>

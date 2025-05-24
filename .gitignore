@@ -49,3 +49,7 @@ DATABASE_URL=postgres://postgres:postgres@localhost:5432/teamtasks
 
 .nx/cache
 .nx/workspace-data
+
+
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md

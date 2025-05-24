@@ -114,3 +114,7 @@ So in @KanbanBoard.tsx  you've added some strange API that's not necessary only 
 The loading state should be display using loading.tsx.
 
 Also, the skeleton component is not installed.
+
+write onTaskCreate  function in @KanbanBoard.tsx for  do possible event task create in  into any kanban column
+
+The theme toggle was removed, please add it back - we're talking about this components @theme-toggle.tsx
