@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import * as z from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
@@ -41,18 +40,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Task } from "@/lib/tasks"
-
-const taskFormSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  status: z.enum(["todo", "in-progress", "done"]),
-  description: z.string().optional(),
-  assigneeId: z.string().optional(),
-  priority: z.enum(["low", "medium", "high"]).optional(),
-  dueDate: z.date().optional(),
-})
-
-type TaskFormValues = z.infer<typeof taskFormSchema>
+import { Task, taskFormSchema, TaskFormValues } from "@/lib/tasks"
 
 interface TaskDialogProps {
   open?: boolean

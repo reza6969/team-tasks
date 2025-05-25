@@ -1,4 +1,5 @@
 import { assignees } from "@/lib/data";
+import * as z from "zod";
 
 export interface Column {
   id: string;
@@ -62,3 +63,14 @@ export async function fetchTasks(): Promise<Task[]> {
   await new Promise((resolve) => setTimeout(resolve, 100));
   return tasks;
 }
+
+export const taskFormSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  status: z.enum(["todo", "in-progress", "done"]),
+  description: z.string().optional(),
+  assigneeId: z.string().optional(),
+  priority: z.enum(["low", "medium", "high"]).optional(),
+  dueDate: z.date().optional(),
+})
+
+export type TaskFormValues = z.infer<typeof taskFormSchema>
