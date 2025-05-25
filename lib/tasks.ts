@@ -11,6 +11,8 @@ export interface Task {
   description: string;
   status: "todo" | "in-progress" | "done"; // Should ideally reference Column ID
   assignee?: { id: string; name: string; email: string; avatar?: string };
+  priority?: "low" | "medium" | "high";
+  dueDate?: string;
 }
 
 // Simulate fetching columns (Server Action)
@@ -34,6 +36,8 @@ export async function fetchTasks(): Promise<Task[]> {
       description: "Set up user authentication using NextAuth.js",
       status: "todo",
       assignee: assignees.find((a) => a.id === "1"),
+      priority: "high",
+      dueDate: "2024-07-01",
     },
     {
       id: "2",
@@ -41,6 +45,8 @@ export async function fetchTasks(): Promise<Task[]> {
       description: "Create wireframes for the main dashboard",
       status: "in-progress",
       assignee: assignees.find((a) => a.id === "2"),
+      priority: "medium",
+      dueDate: "2024-07-05",
     },
     {
       id: "3",
@@ -48,9 +54,11 @@ export async function fetchTasks(): Promise<Task[]> {
       description: "Initialize and configure the database",
       status: "done",
       assignee: assignees.find((a) => a.id === "3"),
+      priority: "low",
+      dueDate: "2024-06-28",
     },
   ];
   // Simulate network delay
   await new Promise((resolve) => setTimeout(resolve, 100));
   return tasks;
-} 
+}
