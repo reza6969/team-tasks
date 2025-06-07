@@ -122,3 +122,29 @@ The theme toggle was removed, please add it back - we're talking about this comp
 I'd like to store the new task. there's the @TaskDialog.tsx . Please create a server action that will store a new task. There's already the client side validation, but please reuse the same schema on the backend and validate the task again inside the server action.
 
 Please also simplify the  flow, so that the task is stored immediatelly, and we don't pass so many event handlers through components.
+
+1) @createTask() action needs to actually store data inside the db. We've got the drizzle setup, so use that.
+Make sure to return meaningful things, so that potential errors can be handled in the form.
+
+2) Make sure we put all the ZOD schemas into 1 single file, wich would be accisble by both server and client side components. So that we can reuse all schemas easily.
+
+So @taskFormSchema should be used in both @createTask() and inside the @TaskDialog.tsx form.
+
+The schema needs to change. Remove priority and dueDate and add the columnId, based on @tasks
+
+Don't add the order to the ZOD schema, as it will be generated later.
+
+Don't do anything else I didn't ask for.
+
+Remove the @taskFormSchema and just use one schema always, defined in @schema.ts
+
+Every @TaskDialog.tsx needs to get the columnId as a prop.
+we need to know, to which column we're adding a task.
+
+it should be passed as a prop from @kanban-column.tsx and it needs to  receive it from @kanban-board.tsx 
+
+And then, this columnId needs to be part of the form inside @TaskDialog.tsx instead of assigneeId
+
+Finally, in the @createTask() make sure you pass the values for columns that should be passed, based on db shema: @tasks
+
+Additionally, since order column should be caculated, you need to calculate it's value inside the @createTask() 

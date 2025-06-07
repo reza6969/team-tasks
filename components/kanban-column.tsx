@@ -6,11 +6,12 @@ import { Task } from "@/lib/tasks";
 
 interface KanbanColumnProps {
     title: string;
+    columnId: number;
     children: React.ReactNode;
-    onTaskCreate: (task: { title: string; status: Task["status"] }) => void;
+    onTaskCreate: (task: { title: string; status: Task["status"]; columnId: number }) => void;
 }
 
-export function KanbanColumn({ title, children, onTaskCreate }: KanbanColumnProps) {
+export function KanbanColumn({ title, columnId, children, onTaskCreate }: KanbanColumnProps) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -23,8 +24,9 @@ export function KanbanColumn({ title, children, onTaskCreate }: KanbanColumnProp
                 <TaskDialog
                     open={open}
                     onOpenChange={setOpen}
+                    columnId={columnId}
                     onSubmit={(data) => {
-                        onTaskCreate({ title: data.title, status: title as Task["status"] });
+                        onTaskCreate({ title: data.title, status: title as Task["status"], columnId });
                         setOpen(false);
                     }}
                 />

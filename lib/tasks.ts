@@ -1,5 +1,4 @@
 import { assignees } from "@/lib/data";
-import * as z from "zod";
 
 export interface Column {
   id: string;
@@ -14,6 +13,7 @@ export interface Task {
   assignee?: { id: string; name: string; email: string; avatar?: string };
   priority?: "low" | "medium" | "high";
   dueDate?: string;
+  columnId: number;
 }
 
 // Simulate fetching columns (Server Action)
@@ -39,6 +39,7 @@ export async function fetchTasks(): Promise<Task[]> {
       assignee: assignees.find((a) => a.id === "1"),
       priority: "high",
       dueDate: "2024-07-01",
+      columnId: 0,
     },
     {
       id: "2",
@@ -48,6 +49,7 @@ export async function fetchTasks(): Promise<Task[]> {
       assignee: assignees.find((a) => a.id === "2"),
       priority: "medium",
       dueDate: "2024-07-05",
+      columnId: 1,
     },
     {
       id: "3",
@@ -57,20 +59,10 @@ export async function fetchTasks(): Promise<Task[]> {
       assignee: assignees.find((a) => a.id === "3"),
       priority: "low",
       dueDate: "2024-06-28",
+      columnId: 2,
     },
   ];
   // Simulate network delay
   await new Promise((resolve) => setTimeout(resolve, 100));
   return tasks;
 }
-
-export const taskFormSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  status: z.enum(["todo", "in-progress", "done"]),
-  description: z.string().optional(),
-  assigneeId: z.string().optional(),
-  priority: z.enum(["low", "medium", "high"]).optional(),
-  dueDate: z.date().optional(),
-})
-
-export type TaskFormValues = z.infer<typeof taskFormSchema>
