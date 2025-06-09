@@ -7,7 +7,10 @@ export async function createTaskAction(formData: TaskFormValues) {
   const result = taskFormSchema.safeParse(formData)
   if (!result.success) {
     console.log("Error: "+result.error.flatten().fieldErrors);
-    return { error: result.error.flatten() }
+    return {
+      error: "Invalid task data",
+      details: result.error.flatten().fieldErrors
+    }
   }
   const { title, description, assigneeId, columnId } = result.data
 
@@ -25,6 +28,9 @@ export async function createTaskAction(formData: TaskFormValues) {
     })
     return { task: created }
   } catch (error) {
-    return { error: (error instanceof Error ? error.message : "Unknown error") }
+    return {
+      error: "Failed to create task",
+      details: (error instanceof Error ? error.message : "Unknown error"),
+    }
   }
-} 
+}

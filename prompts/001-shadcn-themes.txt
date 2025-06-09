@@ -141,10 +141,10 @@ Remove the @taskFormSchema and just use one schema always, defined in @schema.ts
 Every @TaskDialog.tsx needs to get the columnId as a prop.
 we need to know, to which column we're adding a task.
 
-it should be passed as a prop from @kanban-column.tsx and it needs to  receive it from @kanban-board.tsx 
+it should be passed as a prop from @kanban-column.tsx and it needs to  receive it from @kanban-board.tsx
 
 And then, this columnId needs to be part of the form inside @TaskDialog.tsx instead of assigneeId
 
 Finally, in the @createTask() make sure you pass the values for columns that should be passed, based on db shema: @tasks
 
-Additionally, since order column should be caculated, you need to calculate it's value inside the @createTask() 
+Additionally, since order column should be caculated, you need to calculate it's value inside the @createTask()
