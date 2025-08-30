@@ -10,7 +10,8 @@ export interface Task {
   title: string;
   description: string;
   status: "todo" | "in-progress" | "done"; // Should ideally reference Column ID
-  assignee?: { id: string; name: string; email: string; avatar?: string };
+  assignee?: { id: string; name: string; email: string; avatar?: string; avatarUrl?: string };
+  assignedAt?: string;
   priority?: "low" | "medium" | "high";
   dueDate?: string;
   columnId: number;

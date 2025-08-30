@@ -4,7 +4,7 @@ import { TaskCard } from "./TaskCard"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { TaskDialog } from "./TaskDialog"
-import { TaskFormValues } from "@/lib/tasks"
+import { TaskFormValues } from "@/lib/zod-schemas"
 
 export type Task = {
   id: string
@@ -15,6 +15,7 @@ export type Task = {
   dueDate?: string
   createdAt?: string
   assignedAt?: string
+  columnId: number
   assignee?: {
     id: string
     name: string

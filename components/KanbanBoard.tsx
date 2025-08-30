@@ -73,7 +73,7 @@ export function KanbanBoard({ tasks = [], columns, onAssigneeChange, onTaskCreat
                   ...data,
                   status: column.id as Task["status"],
                   description: data.description ?? "",
-                  dueDate: data.dueDate ? data.dueDate.toISOString() : undefined,
+                  dueDate: data.dueDate,
                   columnId: data.columnId,
                 })
               }

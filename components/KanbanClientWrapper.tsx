@@ -1,7 +1,8 @@
 "use client";
 
 import { KanbanBoard } from "./KanbanBoard";
-import { Task, Column, TaskFormValues } from "@/lib/tasks";
+import { Task, Column } from "@/lib/tasks";
+import { TaskFormValues } from "@/lib/zod-schemas";
 import { useState } from "react";
 import { createTaskAction } from "@/app/create-task-action";
 
@@ -28,7 +29,7 @@ export function KanbanClientWrapper({ tasks, columns }: KanbanClientWrapperProps
         description: result.task.description ?? "",
         status: data.status, // Use the status from the form
         priority: data.priority,
-        dueDate: data.dueDate ? data.dueDate.toISOString() : undefined,
+        dueDate: data.dueDate,
         assignee: undefined, // You may want to resolve this if needed
         columnId: result.task.columnId,
       };

@@ -11,8 +11,8 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
-import { UserCircle, Calendar, Clock, AlertCircle, MoreHorizontal } from "lucide-react"
-import type { Task } from "./KanbanBoard"
+import { UserCircle, Calendar, AlertCircle, MoreHorizontal } from "lucide-react"
+import type { Task } from "@/lib/tasks"
 import { TaskDialog } from "./TaskDialog"
 import { useState } from "react"
 import {
@@ -179,22 +179,14 @@ export function TaskCard({ task, onAssigneeChange, onTaskUpdate }: TaskCardProps
           </TooltipProvider>
         </div>
 
-        {(task.dueDate || task.createdAt) && (
+        {task.dueDate && (
           <>
             <Separator className="mt-3" />
             <CardFooter className="text-xs text-muted-foreground pt-3">
-              {task.dueDate && (
-                <div className="flex items-center gap-1 mr-4">
-                  <Calendar className="h-3 w-3" />
-                  <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>
-                </div>
-              )}
-              {task.createdAt && (
-                <div className="flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  <span>Created: {new Date(task.createdAt).toLocaleDateString()}</span>
-                </div>
-              )}
+              <div className="flex items-center gap-1 mr-4">
+                <Calendar className="h-3 w-3" />
+                <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>
+              </div>
             </CardFooter>
           </>
         )}
@@ -206,7 +198,13 @@ export function TaskCard({ task, onAssigneeChange, onTaskUpdate }: TaskCardProps
         initialData={task}
         columnId={task.columnId}
         onSubmit={(values) => {
-          console.log('Task edit submitted:', { taskId: task.id, values })
+          console.log('=== TASK EDIT SUBMITTED ===')
+          console.log('Task ID:', task.id)
+          console.log('Original Task:', task)
+          console.log('Form Values:', values)
+          console.log('Updated Task:', { ...task, ...values })
+          console.log('=== END ===')
+          
           if (onTaskUpdate) {
             onTaskUpdate({
               ...task,
