@@ -148,3 +148,8 @@ And then, this columnId needs to be part of the form inside @TaskDialog.tsx inst
 Finally, in the @createTask() make sure you pass the values for columns that should be passed, based on db shema: @tasks
 
 Additionally, since order column should be caculated, you need to calculate it's value inside the @createTask()
+
+We need to edit the task as well @Forms & Frontend 
+We've got an existing dialog & form, if possible try reusing it for that feature: @TaskDialog.tsx 
+
+Don't create the saving function yet on the backend, just create the form that submit the modified data (it can  console.log for now). 

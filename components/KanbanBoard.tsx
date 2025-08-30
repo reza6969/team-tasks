@@ -15,11 +15,13 @@ export interface Task {
   dueDate?: string
   createdAt?: string
   assignedAt?: string
+  columnId: number
   assignee?: {
     id: string
     name: string
     email: string
     avatar?: string
+    avatarUrl?: string
   }
 }
 
@@ -28,9 +30,10 @@ interface KanbanBoardProps {
   columns: Column[]
   onAssigneeChange?: (taskId: string, userId: string) => void
   onTaskCreate?: (task: Omit<Task, "id">) => void
+  onTaskUpdate?: (task: Task) => void
 }
 
-export function KanbanBoard({ tasks = [], columns, onAssigneeChange, onTaskCreate }: KanbanBoardProps) {
+export function KanbanBoard({ tasks = [], columns, onAssigneeChange, onTaskCreate, onTaskUpdate }: KanbanBoardProps) {
   const [openDialogColumn, setOpenDialogColumn] = useState<string | null>(null)
   const columnsWithTasks = columns.map(column => ({
     ...column,
@@ -56,12 +59,14 @@ export function KanbanBoard({ tasks = [], columns, onAssigneeChange, onTaskCreat
                 key={task.id}
                 task={task}
                 onAssigneeChange={onAssigneeChange}
+                onTaskUpdate={onTaskUpdate}
               />
             ))}
           </div>
           <TaskDialog
             open={openDialogColumn === column.id}
             onOpenChange={(open) => setOpenDialogColumn(open ? column.id : null)}
+            columnId={0} // Default column ID for new tasks
             onSubmit={(data) => {
               if (onTaskCreate) {
                 onTaskCreate({
@@ -69,6 +74,7 @@ export function KanbanBoard({ tasks = [], columns, onAssigneeChange, onTaskCreat
                   status: column.id as Task["status"],
                   description: data.description ?? "",
                   dueDate: data.dueDate ? data.dueDate.toISOString() : undefined,
+                  columnId: data.columnId,
                 })
               }
             }}

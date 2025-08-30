@@ -38,7 +38,7 @@ interface TaskDialogProps {
   onOpenChange?: (open: boolean) => void
   initialData?: Task
   onSubmit?: (data: TaskFormValues) => void
-  columnId: number
+  columnId?: number
 }
 
 export function TaskDialog({ open, onOpenChange, initialData, onSubmit, columnId }: TaskDialogProps) {
@@ -48,7 +48,7 @@ export function TaskDialog({ open, onOpenChange, initialData, onSubmit, columnId
       title: initialData?.title ?? "",
       status: initialData?.status ?? "todo",
       description: initialData?.description ?? "",
-      columnId,
+      columnId: columnId ?? initialData?.columnId ?? 0,
     },
   })
 

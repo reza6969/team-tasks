@@ -30,6 +30,7 @@ export function KanbanClientWrapper({ tasks, columns }: KanbanClientWrapperProps
         priority: data.priority,
         dueDate: data.dueDate ? data.dueDate.toISOString() : undefined,
         assignee: undefined, // You may want to resolve this if needed
+        columnId: result.task.columnId,
       };
       setTaskList((prev) => [...prev, newTask]);
     } else {
@@ -38,12 +39,24 @@ export function KanbanClientWrapper({ tasks, columns }: KanbanClientWrapperProps
     }
   };
 
+  const handleTaskUpdate = (updatedTask: Task) => {
+    console.log('Task update requested:', updatedTask);
+    // For now, just update the local state
+    // In the future, this will call a server action to update the database
+    setTaskList((prev) => 
+      prev.map((task) => 
+        task.id === updatedTask.id ? updatedTask : task
+      )
+    );
+  };
+
   return (
     <KanbanBoard
       tasks={taskList}
       columns={columns}
       onAssigneeChange={handleAssigneeChange}
       onTaskCreate={handleTaskCreate}
+      onTaskUpdate={handleTaskUpdate}
     />
   );
 }

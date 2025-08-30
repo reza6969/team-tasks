@@ -204,15 +204,15 @@ export function TaskCard({ task, onAssigneeChange, onTaskUpdate }: TaskCardProps
         open={isEditDialogOpen} 
         onOpenChange={setIsEditDialogOpen}
         initialData={task}
+        columnId={task.columnId}
         onSubmit={(values) => {
+          console.log('Task edit submitted:', { taskId: task.id, values })
           if (onTaskUpdate) {
             onTaskUpdate({
               ...task,
               ...values,
-              dueDate: values.dueDate ? values.dueDate.toISOString() : undefined,
             })
           }
-          setIsEditDialogOpen(false)
         }}
       />
     </Card>
